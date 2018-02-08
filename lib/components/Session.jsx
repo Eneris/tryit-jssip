@@ -9,6 +9,7 @@ import classnames from 'classnames';
 import JsSIP from 'jssip';
 import Logger from '../Logger';
 import TransitionAppear from './TransitionAppear';
+import CallInfo from './CallInfo';
 
 const logger = new Logger('Session');
 
@@ -77,6 +78,8 @@ export default class Session extends React.Component
 					:
 						null
 					}
+
+					<CallInfo connection={props.session.connection} />
 
 					<div className='controls-container'>
 						<div className='controls'>

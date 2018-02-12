@@ -35,20 +35,25 @@ class CallInfo extends Component {
 
   render() {
     const stats = this.state.stats
+    console.log('BLA', stats)
 
     return (
-      <div style={{position: 'fixed', zIndex: 1000, top: 100, left: 100}}>
+      <div className='no-remote-video-info'>
+        {stats.filter(x => x.candidateType === 'serverreflexive').map(({ipAddress, networkType}) => [
+          <div className='message'><strong>ipAddress</strong>: {ipAddress}</div>,
+          <div className='message'><strong>networkType</strong>: {networkType}</div>
+        ])}
         {stats.filter(x => x.transportId && x.transportId.match(/audio/)).map(({
            packetsSent,
            packetsLost,
-           googRtt
-        }) => (
-          <ul>
-            <li>{`packetsSent: ${packetsSent}`}</li>,
-            <li>{`packetsLost: ${packetsLost}`}</li>
-            <li>{`googRtt: ${googRtt}`}</li>
-          </ul>
-        ))}
+           googRtt,
+           googResidualEchoLikelihood
+        }) => [
+          <div className='message'><strong>packetsSent</strong>: {packetsSent}</div>,
+          <div className='message'><strong>packetsLost</strong>: {packetsLost}</div>,
+          <div className='message'><strong>googRtt</strong>: {googRtt}</div>,
+          <div className='message'><strong>googResidualEchoLikelihood</strong>: {googResidualEchoLikelihood}</div>
+        ])}
       </div>
     )
   }

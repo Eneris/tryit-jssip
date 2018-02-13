@@ -44,15 +44,24 @@ class CallInfo extends Component {
           <div className='message'><strong>networkType</strong>: {networkType}</div>
         ])}
         {stats.filter(x => x.transportId && x.transportId.match(/audio/)).map(({
-           packetsSent,
+           googCodecName,
            packetsLost,
            googRtt,
-           googResidualEchoLikelihood
+           googResidualEchoLikelihood,
+           googJitterReceived
         }) => [
-          <div className='message'><strong>packetsSent</strong>: {packetsSent}</div>,
+          <div className='message'><strong>CodecName</strong>: {googCodecName}</div>,
           <div className='message'><strong>packetsLost</strong>: {packetsLost}</div>,
-          <div className='message'><strong>googRtt</strong>: {googRtt}</div>,
-          <div className='message'><strong>googResidualEchoLikelihood</strong>: {googResidualEchoLikelihood}</div>
+          <div className='message'><strong>RTT</strong>: {googRtt}</div>,
+          <div className='message'><strong>Echo Likelihood</strong>: {googResidualEchoLikelihood}</div>,
+          <div className='message'><strong>JitterReceived</strong>: {googJitterReceived}</div>
+        ])}
+        {stats.filter(x => x.googChannelId && x.googChannelId.match(/audio/)).map(({
+           bytesReceived,
+           bytesSent,
+        }) => [
+          <div className='message'><strong>bytesReceived</strong>: {parseInt(parseInt(bytesReceived)/1024)} KB</div>,
+          <div className='message'><strong>bytesSent</strong>: {parseInt(parseInt(bytesSent)/1024)} KB</div>
         ])}
       </div>
     )
